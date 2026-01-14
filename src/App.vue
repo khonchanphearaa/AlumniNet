@@ -1,7 +1,3 @@
-<script setup></script>
-
 <template>
-  <p class="text-center text-5xl font-bold ">Hello Kitty</p>
+  <router-view />
 </template>
-
-<style scoped></style>
