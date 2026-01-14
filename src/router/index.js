@@ -12,6 +12,11 @@ const router = createRouter({
           path: 'login',
           name: 'Login',
           component: () => import('@/features/auth/views/Login.vue') // lazy
+        },
+        {
+          path: 'singup',
+          name: 'Signup',
+          component: () => import('@/features/auth/views/Signup.vue')
         }
       ]
     },
