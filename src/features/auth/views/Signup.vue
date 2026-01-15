@@ -7,12 +7,12 @@
             <BaseForm title="Create Account" subTitle="Sign Up for Create your account" @submit="handleSignup">
                 <!-- FORM FIELDS -->
                 <template #fields>
-                    <BaseInput v-model="form.fullName" placeholder="Enter Full Name" />
+                    <BaseInput v-model="form.fullName" label="Enter Full Name" />
 
-                    <BaseInput v-model="form.email" type="email" placeholder="Enter Email Address" />
+                    <BaseInput v-model="form.email" type="email" label="Enter Email Address" />
 
                     <BaseInput v-model="form.password" :type="showPassword ? 'text' : 'password'"
-                        placeholder="Password">
+                        label="Password">
                         <template #append>
                             <button type="button" class="text-gray-400" @click="showPassword = !showPassword">
                                 <span class="text-[10px] font-bold">
