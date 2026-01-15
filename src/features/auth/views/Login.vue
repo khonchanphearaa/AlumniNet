@@ -1,25 +1,12 @@
 <template>
-  <BaseLayoutAuth 
-    :bgImage="signupBg" 
-    :heroImage="imageSignup"
-    title="Your Pathway to Alumni Connection and Student Success"
-    description="Welcome to AlumiNet, connecting alumni and students through collaboration and growth."
-  >
-    <BaseForm 
-      title="Welcome back"
-      subTitle="Sign in to your account to continue"
-      @submit="handleSignup"
-    >
-      <template #fields>
-        <BaseInput 
-          v-model="form.email" 
-          type="email" 
-          placeholder="Enter Email Address" 
-        />
-
-        <BaseForm title="Login Account" subTitle="Loigin Account with AlumniNet" @submit.prevent="handleSignin()">
-            <!-- FORM FIELDS -->
+    <BaseLayoutAuth :bgImage="signupBg" :heroImage="imageSignup"
+        title="Your Pathway to Alumni Connection and Student Success"
+        description="Welcome to AlumiNet, connecting alumni and students through collaboration and growth.">
+        <BaseForm title="Login Account" subTitle="Login Account with AlumniNet" @submitgood="handleSignin">
             <template #fields>
+                <div v-if="authStore.message_error" class="text-red-500 text-center text-sm mb-4">
+                    {{ authStore.message_error }}
+                </div>
 
                 <BaseInput v-model="form.email" type="email" label="Email" :messageError="errors.email" />
 
@@ -35,20 +22,18 @@
                 </BaseInput>
             </template>
 
-            <!-- ACTIONS -->
             <template #actions>
-                <BaseButton :loading="isLoading">
-                    {{ isLoading ? "loading..." : "Sign In" }}
+                <BaseButton :loading="isLoading" type="submit">
+                    {{ isLoading ? "Loading..." : "Sign In" }}
                 </BaseButton>
             </template>
 
-            <!-- FOOTER -->
             <template #footer>
                 <p class="text-center text-sm text-gray-500 pt-2">
-                    Already have Account?
-                    <a href="#" class="text-blue-600 font-medium hover:underline">
+                    Don't have an account?
+                    <router-link to="/signup" class="text-blue-600 font-medium hover:underline">
                         Signup
-                    </a>
+                    </router-link>
                 </p>
             </template>
         </BaseForm>
@@ -57,72 +42,54 @@
 
 <script setup>
 import { ref, reactive } from 'vue';
+import { useRouter } from 'vue-router';
+import { z } from 'zod';
+import { useAuthStore } from '../store/authStore';
 import BaseInput from '@/components/ui/BaseInput.vue';
 import BaseButton from '@/components/ui/BaseButton.vue';
 import BaseForm from '@/components/ui/BaseForm.vue';
 import BaseLayoutAuth from '@/components/ui/BaseLayoutAuth.vue';
-import { z } from 'zod';
-import { useAuthStore } from '../store/authStore';
-import { useRouter } from 'vue-router';
 
 import signupBg from '@/assets/images/Bg-signup.jpg';
 import imageSignup from '@/assets/images/Auth_image.png';
 
+const router = useRouter();
+const authStore = useAuthStore();
+
 const showPassword = ref(false);
-let isLoading = ref(false)
-let authStore = useAuthStore();
-let errors = ref({});
-let router = useRouter();
+const isLoading = ref(false);
+const errors = ref({});
 
-
-// Form Data
 const form = reactive({
     email: '',
     password: '',
 });
-const loginSchema = z.object({
-    email: z
-        .string()
-        .min(1, "Please input valid email")
-        .email("Email must be to valid"),
 
-    password: z
-        .string()
-        .min(1, "Please input valid password")
-        .min(6, "Password must to be 6 charater")
-})
+const loginSchema = z.object({
+    email: z.string().min(1, "Please input email").email("Email must be valid"),
+    password: z.string().min(6, "Password must be at least 6 characters")
+});
 
 const handleSignin = async () => {
-    let result = loginSchema.safeParse({
-        email: form.email,
-        password: form.password
-    });
-    errors.value = {}
+    const result = loginSchema.safeParse(form);
+    errors.value = {};
+
     if (!result.success) {
         const formatted = result.error.format();
         errors.value.email = formatted.email?._errors[0] || "";
         errors.value.password = formatted.password?._errors[0] || "";
         return;
     }
+
     try {
         isLoading.value = true;
         const res = await authStore.login(form.email, form.password);
+        console.log("Login Success:", res);
 
-        console.log("Login successful:", res);
-
-        // Redirect to dashboard or home after successful login
-        // router.push({name: 'home'});
     } catch (error) {
-        console.error("Signin error:", error);
-        // Display error message to user
-        errors.value.email = error.message || "Login failed. Please try again.";
-    }
-    finally {
+        console.error("Signin failure:", error);
+    } finally {
         isLoading.value = false;
     }
-
-  setTimeout(() => {
-    isLoading.value = false;
-  }, 2000);
 };
 </script>
