@@ -1,8 +1,21 @@
 <template>
-    <BaseLayoutAuth :bgImage="signupBg" :heroImage="imageSignup"
-        title="Your Pathway to Alumni Connection and Student Success"
-        description="Welcome to AlumiNet, connecting alumni and students through collaboration and growth.">
-        <!-- Right Side Card -->
+  <BaseLayoutAuth 
+    :bgImage="signupBg" 
+    :heroImage="imageSignup"
+    title="Your Pathway to Alumni Connection and Student Success"
+    description="Welcome to AlumiNet, connecting alumni and students through collaboration and growth."
+  >
+    <BaseForm 
+      title="Welcome back"
+      subTitle="Sign in to your account to continue"
+      @submit="handleSignup"
+    >
+      <template #fields>
+        <BaseInput 
+          v-model="form.email" 
+          type="email" 
+          placeholder="Enter Email Address" 
+        />
 
         <BaseForm title="Login Account" subTitle="Loigin Account with AlumniNet" @submit.prevent="handleSignin()">
             <!-- FORM FIELDS -->
@@ -62,6 +75,7 @@ let errors = ref({});
 let router = useRouter();
 
 
+// Form Data
 const form = reactive({
     email: '',
     password: '',
@@ -107,5 +121,8 @@ const handleSignin = async () => {
         isLoading.value = false;
     }
 
+  setTimeout(() => {
+    isLoading.value = false;
+  }, 2000);
 };
 </script>
