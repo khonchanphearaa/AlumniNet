@@ -1,6 +1,7 @@
 <template>
     <button :type="type" :disabled="disabled || loading"
-        class="w-full bg-[#002d5b] text-white py-3.5 md:py-4 rounded-xl font-semibold hover:bg-[#003d7a] active:scale-[0.98] transition-all shadow-lg mt-2 disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center gap-2">
+        :class="buttonClasses"
+        class="w-full bg-[#002d5b] text-white h-12 md:h-10 rounded-xl font-semibold hover:bg-[#003d7a] active:scale-[0.98] transition-all shadow-lg mt-2 disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center gap-2 cursor-pointer">
         <svg v-if="loading" class="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none"
             viewBox="0 0 24 24">
             <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>

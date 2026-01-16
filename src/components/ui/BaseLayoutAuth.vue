@@ -1,5 +1,5 @@
 <template>
-    <div class="min-h-screen bg-cover bg-center bg-no-repeat flex items-center justify-center p-4 md:p-6 font-sans selection:bg-blue-100"
+    <div class="min-h-screen bg-cover bg-center bg-no-repeat flex items-center justify-center p-4 md:p-6 selection:bg-blue-100"
         :style="{ backgroundImage: `url(${bgImage})` }">
         <div class="max-w-7xl w-full grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
 
