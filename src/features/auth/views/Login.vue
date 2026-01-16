@@ -48,7 +48,7 @@
               v-model="form.rememberMe"
               class="w-4 h-4 rounded border-gray-300 text-blue-900 focus:ring-blue-800 cursor-pointer"
             />
-            <span class="ml-2 text-xs text-gray-500 selection:bg-transparent">
+            <span class="ml-2 text-xs  text-gray-500 selection:bg-transparent">
                 By selecting Continue, you agree to our <b>Terms of Service</b> and acknowledge our <b>Privacy Policy</b>.
             </span>
           </label>
@@ -94,7 +94,7 @@ const form = reactive({
   password: '',
   department: '',
   generation: '',
-  rememberMe: false // Track checkbox state here
+  rememberMe: false // checkbox
 });
 
 // Handlers
