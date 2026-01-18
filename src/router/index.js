@@ -17,6 +17,11 @@ const router = createRouter({
           path: '/signup',
           name: 'Signup',
           component: () => import('@/features/auth/views/Signup.vue')
+        },
+        {
+          path: 'otp',
+          name: 'Otp',
+          component: () => import('@/features/auth/views/SendOTP.vue')
         }
       ]
     },
