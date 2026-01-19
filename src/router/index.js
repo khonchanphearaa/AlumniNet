@@ -22,6 +22,11 @@ const router = createRouter({
           path: 'otp',
           name: 'Otp',
           component: () => import('@/features/auth/views/SendOTP.vue')
+        },
+        {
+          path: 'forgotPassword',
+          name: 'ForgotPassword',
+          component: () => import('@/features/auth/views/ForgotPassword.vue')
         }
       ]
     },

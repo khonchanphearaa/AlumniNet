@@ -42,7 +42,7 @@
             <template #footer>
                 <p class="text-center text-sm text-gray-500 pt-2">
                     Already have Account?
-                    <a href="#" class="text-blue-600 font-medium hover:underline">Login</a>
+                    <router-link to="/auth/login" class="text-blue-600 font-medium hover:underline">Login</router-link>
                 </p>
             </template>
         </BaseForm>

@@ -49,7 +49,7 @@
       <template #footer>
         <p class="text-center text-sm text-gray-500 pt-2">
           Don't have an account?
-          <router-link to="/signup" class="text-blue-600 font-medium hover:underline">
+          <router-link to="/auth/signup" class="text-blue-600 font-medium hover:underline">
             Signup
           </router-link>
         </p>
